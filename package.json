@@ -1,0 +1,20 @@
+{
+  "name": "tsp-ls-explorer",
+  "version": "1.0.0",
+  "description": "This application allows the exploration of multiple heuristics for bootstrapping a local search solver of the travelling salesman problem. It also allows the exploration of state of the art optimization operators such as 2-opt and 3-opt. The application visulizes all intermediate tours built by the local search algorithm and keeps track of their cost. ",
+  "keywords": [
+    "tsp",
+    "2-opt",
+    "3-opt",
+    "maximum",
+    "spanning",
+    "tree."
+  ],
+  "license": "Apache-2.0",
+  "author": "Skander Kort",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
