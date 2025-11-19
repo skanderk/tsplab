@@ -16,7 +16,6 @@
 </script>
 
 <!-- Page Wrapper -->
-<!-- <div class="w-screen flex flex-col items-center py-10 border-2 border-black"> -->
   <div class="w-screen flex flex-col items-center py-10 
             border border-gray-300 rounded-xl shadow-xl 
             !bg-[#fdfcf5]">
