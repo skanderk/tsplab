@@ -3,7 +3,8 @@
  */
 
 import type { Node } from "./graph-types";
-import { InvalidNodeError, EmptyCostMatrixError } from "./error-types";
+import { EmptyCostMatrixError } from "./error-types";
+import { Validation } from "./validation";
 
 export type Cost = number;
 
@@ -19,9 +20,9 @@ export class CostMatrix {
      * 
      * @throws EmptyCostMatrix when costs is empty.
      */
-    constructor(private readonly costs: ReadonlyArray<ReadonlyArray<Cost>>) { 
+    constructor(private readonly costs: ReadonlyArray<ReadonlyArray<Cost>>) {
         if (costs.length == 0)
-            throw new EmptyCostMatrixError(); 
+            throw new EmptyCostMatrixError();
     }
 
     /**
@@ -29,17 +30,14 @@ export class CostMatrix {
      * @returns cost of edge (i, j), assuming that the cost matrix is symmetric.
      */
     public cost(i: Node, j: Node): Cost {
-        this.validateNode(i);
-        this.validateNode(j);
+        const matrixOrder = this.order();
+        Validation.validateNode(i, matrixOrder);
+        Validation.validateNode(j, matrixOrder);
 
         if (i === j) return 0;
         return i < j ? this.costs[i][j - i - 1] : this.costs[j][i - j - 1];
     }
 
-    private validateNode(n: Node) {
-        if (n < 0 || n >= this.order())
-            throw new InvalidNodeError(`Invalid node ${n}, value must >=0 and < ${this.order()}!`)
-    }
 
     /**
      * 
