@@ -12,7 +12,7 @@ dist
 assets
 dist-ssr
 *.local
-tests
+
 
 # Editor directories and files
 .vscode/*
