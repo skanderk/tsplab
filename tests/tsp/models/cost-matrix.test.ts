@@ -1,6 +1,6 @@
 import { beforeEach, describe, it, expect } from "vitest";
-import { CostMatrix } from "../../../src/tsp/models/costs";
-import { InvalidNodeError, EmptyCostMatrixError } from "../../../src/tsp/models/error-types";
+import { CostMatrix } from "../../../src/tsp/models/cost-matrix";
+import { InvalidNodeError, CostMatrixError } from "../../../src/tsp/validators/errors";
 
 describe("CostMatrix", () => {
     let costMatrix: CostMatrix;
@@ -14,7 +14,7 @@ describe("CostMatrix", () => {
         it("throws when costs is an empty array", () => {
 
 
-            expect(() => new CostMatrix([])).toThrow(EmptyCostMatrixError);
+            expect(() => new CostMatrix([])).toThrow(CostMatrixError);
         })
     });
 
@@ -46,7 +46,7 @@ describe("CostMatrix", () => {
             expect(() => costMatrix.cost(-5, 2)).toThrow(InvalidNodeError);
             expect(() => costMatrix.cost(1, 12)).toThrow(InvalidNodeError);
             expect(() => costMatrix.cost(1, 4)).toThrow(InvalidNodeError);
-        })
+        });
     });
 
     describe("order()", () => {
@@ -55,6 +55,6 @@ describe("CostMatrix", () => {
             const resultOrder = costMatrix.order();
 
             expect(resultOrder).toEqual(4);
-        })
+        });
     })
 });

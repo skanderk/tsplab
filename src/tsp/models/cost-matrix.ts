@@ -1,10 +1,6 @@
-/**
- * Cost of an edge.
- */
-
 import type { Node } from "./graph-types";
-import { EmptyCostMatrixError } from "./error-types";
-import { Validation } from "./validation";
+import { CoreValidator } from "../validators/core-validator";
+import { CostMatrixValidator } from "../validators/cost-matrix-validator";
 
 export type Cost = number;
 
@@ -14,16 +10,16 @@ export type Cost = number;
 export class CostMatrix {
     /**
      * 
-     * @param costs Upper right half of the costs matrix. 
+     * @param costs Upper-right half of the costs matrix. 
      * Example: Given complete graph K4 with node numbers starting from 0 and costs [[12,23,5], [85, 27], [99]], we have cost(0, 1) = 12,
-     * cost(0, 3) = 5 and cost(1, 3) = 27 and cost(2, 3) = 99. 
+     * cost(0, 3) = 5 and cost(1, 3) = 27 and cost(2, 3) = 99.
      * 
      * @throws EmptyCostMatrix when costs is empty.
      */
     constructor(private readonly costs: ReadonlyArray<ReadonlyArray<Cost>>) {
-        if (costs.length == 0)
-            throw new EmptyCostMatrixError();
+        CostMatrixValidator.validate(costs);
     }
+
 
     /**
      * 
@@ -31,8 +27,8 @@ export class CostMatrix {
      */
     public cost(i: Node, j: Node): Cost {
         const matrixOrder = this.order();
-        Validation.validateNode(i, matrixOrder);
-        Validation.validateNode(j, matrixOrder);
+        CoreValidator.validateNode(i, matrixOrder);
+        CoreValidator.validateNode(j, matrixOrder);
 
         if (i === j) return 0;
         return i < j ? this.costs[i][j - i - 1] : this.costs[j][i - j - 1];

@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { Edge } from "../../../src/tsp/models/graph-types";
 import { EdgeExchange } from "../../../src/tsp/models/move-types";
-import { InvalidEdgeExchangeError } from "../../../src/tsp/models/error-types";
+import { InvalidEdgeExchangeError } from "../../../src/tsp/validators/errors";
 
 describe("EdgeExchange", () => {
     describe("constructor()", () => {

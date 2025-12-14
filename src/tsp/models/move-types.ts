@@ -3,7 +3,7 @@
  */
 
 import { Edge } from "./graph-types";
-import { InvalidEdgeExchangeError } from "./error-types";
+import { InvalidEdgeExchangeError } from "../validators/errors";
 
 /**
  * Describes an immutable exchange of edges in a graph. That is the removal of a certain number of edges from the graph 
