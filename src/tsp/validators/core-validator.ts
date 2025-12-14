@@ -1,7 +1,12 @@
+/*
+ * @Author: Skander Kort 
+ * @Date: 2025-12-14 05:02:59 
+ * @Last Modified by:   Skander Kort 
+ * @Last Modified time: 2025-12-14 05:02:59 
+ */
 
 import { type Node } from "../models/graph-types";
 import { InvalidCostError, InvalidNodeError } from "./errors";
-import type { Cost } from "../models/cost-matrix";
 
 /**
  * Provides validation utilities for models.

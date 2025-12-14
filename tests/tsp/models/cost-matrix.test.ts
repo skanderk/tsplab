@@ -1,3 +1,10 @@
+/*
+ * @Author: Skander Kort 
+ * @Date: 2025-12-14 05:03:19 
+ * @Last Modified by:   Skander Kort 
+ * @Last Modified time: 2025-12-14 05:03:19 
+ */
+
 import { beforeEach, describe, it, expect } from "vitest";
 import { CostMatrix } from "../../../src/tsp/models/cost-matrix";
 import { InvalidNodeError, CostMatrixError } from "../../../src/tsp/validators/errors";

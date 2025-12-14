@@ -1,3 +1,10 @@
+/*
+ * @Author: Skander Kort 
+ * @Date: 2025-12-14 05:03:10 
+ * @Last Modified by:   Skander Kort 
+ * @Last Modified time: 2025-12-14 05:03:10 
+ */
+
 import type { Cost } from '../models/cost-matrix';
 import { InvalidCostError, CostMatrixError } from './errors';
 

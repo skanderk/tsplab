@@ -1,3 +1,10 @@
+/*
+ * @Author: Skander Kort 
+ * @Date: 2025-12-14 05:00:46 
+ * @Last Modified by:   Skander Kort 
+ * @Last Modified time: 2025-12-14 05:00:46 
+ */
+
 import type { Node } from "./graph-types";
 import { CoreValidator } from "../validators/core-validator";
 import { CostMatrixValidator } from "../validators/cost-matrix-validator";
