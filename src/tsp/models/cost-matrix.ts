@@ -1,9 +1,11 @@
 /*
- * @Author: Skander Kort 
- * @Date: 2025-12-14 05:00:46 
- * @Last Modified by:   Skander Kort 
- * @Last Modified time: 2025-12-14 05:00:46 
+ * Author: Skander Kort
+ * Created: 2025-11-21 03:05:23
+ * Modified: 2025-12-15 04:40:10
+ * 
+ * Licensed under the Apache License, Version 2.0
  */
+
 
 import type { Node } from "./graph-types";
 import { CoreValidator } from "../validators/core-validator";

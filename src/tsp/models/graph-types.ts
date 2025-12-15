@@ -1,18 +1,11 @@
 /*
- * @Author: Skander Kort 
- * @Date: 2025-12-14 05:00:34 
- * @Last Modified by:   Skander Kort 
- * @Last Modified time: 2025-12-14 05:00:34 
- */
-
-
-/**
- * Core graph data structures: nodes, edges, and arcs.
+ * Author: Skander Kort
+ * Created: 2025-11-21 02:55:34
+ * Modified: 2025-12-15 04:40:30
  * 
- * - Node: Non-negative integer representing a graph vertex
- * - Edge: Undirected connection between two nodes
- * - Arc: Directed connection from source to target node
+ * Licensed under the Apache License, Version 2.0
  */
+
 
 import { CoreValidator } from "../validators/core-validator";
 import { ArcError, EdgeError } from "../validators/errors";

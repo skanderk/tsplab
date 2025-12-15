@@ -1,9 +1,11 @@
 /*
- * @Author: Skander Kort 
- * @Date: 2025-12-14 05:03:10 
- * @Last Modified by:   Skander Kort 
- * @Last Modified time: 2025-12-14 05:03:10 
+ * Author: Skander Kort
+ * Created: 2025-12-14 01:04:45
+ * Modified: 2025-12-15 04:41:32
+ * 
+ * Licensed under the Apache License, Version 2.0
  */
+
 
 import type { Cost } from '../models/cost-matrix';
 import { InvalidCostError, CostMatrixError } from './errors';

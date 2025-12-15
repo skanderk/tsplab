@@ -1,9 +1,11 @@
 /*
- * @Author: Skander Kort 
- * @Date: 2025-12-14 05:00:21 
- * @Last Modified by: Skander Kort
- * @Last Modified time: 2025-12-14 06:47:00
+ * Author: Skander Kort
+ * Created: 2025-12-14 04:39:19
+ * Modified: 2025-12-15 04:42:38
+ * 
+ * Licensed under the Apache License, Version 2.0
  */
+
 
 import { describe, it, expect } from "vitest";
 

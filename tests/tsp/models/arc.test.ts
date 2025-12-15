@@ -1,9 +1,11 @@
 /*
- * @Author: Skander Kort 
- * @Date: 2025-12-14 06:47:50 
- * @Last Modified by: Skander Kort
- * @Last Modified time: 2025-12-14 07:06:13
+ * Author: Skander Kort
+ * Created: 2025-12-14 06:47:47
+ * Modified: 2025-12-15 04:42:07
+ * 
+ * Licensed under the Apache License, Version 2.0
  */
+
 
 import { describe, it, expect } from "vitest";
 import { Arc } from "../../../src/tsp/models/graph-types";

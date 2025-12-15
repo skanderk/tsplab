@@ -1,9 +1,11 @@
 /*
- * @Author: Skander Kort 
- * @Date: 2025-12-14 05:03:40 
- * @Last Modified by:   Skander Kort 
- * @Last Modified time: 2025-12-14 05:03:40 
+ * Author: Skander Kort
+ * Created: 2025-12-14 02:23:59
+ * Modified: 2025-12-15 04:42:55
+ * 
+ * Licensed under the Apache License, Version 2.0
  */
+
 
 import { describe, it, expect } from "vitest";
 import { CostMatrixValidator } from "../../../src/tsp/validators/cost-matrix-validator";
