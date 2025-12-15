@@ -8,6 +8,7 @@
 
 import { Edge } from "./graph-types";
 import { EdgeExchangeError } from "../validators/errors";
+import type { CostMatrix } from "./cost-matrix";
 
 /**
  * Represents an immutable exchange of edges in a graph.
@@ -53,11 +54,22 @@ export class EdgeExchange {
 
         const insHashSet = new Set(insertions.map(hashEdgeFn));
         const hasOverlap = removals.some(edge => insHashSet.has(edge.hash()));
-        
+
         if (hasOverlap) {
             throw new EdgeExchangeError(
                 "Removals and insertions must be disjoint sets"
             );
         }
+    }
+
+    /**
+    * @param costs CostMatrix
+    * @returns Expected gain when this exchange is applied to a tour. 
+    * Positive values indicate improvement; negative values indicate loss.
+    */
+    public gain(costs: CostMatrix): number {
+        const sumCosts = (edges: readonly Edge[]) => edges.reduce((acc, edge) => acc + costs.cost(edge.node1, edge.node2), 0);
+
+        return sumCosts(this.insertions) - sumCosts(this.removals);
     }
 }
