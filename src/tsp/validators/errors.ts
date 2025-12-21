@@ -21,3 +21,5 @@ export class CostMatrixError extends Error { }
 export class EdgeExchangeError extends Error {}
 
 export class InvalidCostError extends Error {}
+
+export class TourError extends Error {}
