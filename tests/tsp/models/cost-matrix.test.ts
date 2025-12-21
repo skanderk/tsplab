@@ -60,7 +60,7 @@ describe("CostMatrix", () => {
     describe("order()", () => {
         it("should return the number of rows (columns) of the full square matrix", () => {
 
-            const resultOrder = costMatrix.order();
+            const resultOrder = costMatrix.order;
 
             expect(resultOrder).toEqual(4);
         });

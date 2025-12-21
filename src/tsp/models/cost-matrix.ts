@@ -35,7 +35,7 @@ export class CostMatrix {
      * @returns cost of edge (i, j), assuming that the cost matrix is symmetric.
      */
     public cost(i: Node, j: Node): Cost {
-        const matrixOrder = this.order();
+        const matrixOrder = this.order;
         CoreValidator.validateNode(i, matrixOrder);
         CoreValidator.validateNode(j, matrixOrder);
 
@@ -48,7 +48,7 @@ export class CostMatrix {
      * 
      * @returns  Number of rows (columns) of the full cost matrix.
      */
-    public order(): number {
+    public get order(): number {
         return this.costs.length + 1;
     }
 }

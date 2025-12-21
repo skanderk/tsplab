@@ -23,3 +23,5 @@ export class EdgeExchangeError extends Error {}
 export class InvalidCostError extends Error {}
 
 export class TourError extends Error {}
+
+export class TspInstanceError extends Error {}
