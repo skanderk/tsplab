@@ -13,6 +13,7 @@
     <!-- Two-column summary table -->
     <table class="w-full text-left text-sm">
         <tbody class="divide-y divide-gray-200">
+            <!-- Current configuration  -->
             <tr>
                 <td class="py-1 font-medium w-1/3">Instance name:</td>
                 <td class="py-1 w-2/3">--</td>
@@ -25,6 +26,14 @@
                 <td class="py-1 font-medium w-1/3">Init heuristic:</td>
                 <td class="py-1 w-2/3">--</td>
             </tr>
+
+            <tr>
+                <td colspan="2" class="pt-3 pb-2">
+                    <div class="border-t border-gray-300"></div>
+                </td>
+            </tr>
+
+            <!-- Current iteration -->
             <tr>
                 <td class="py-1 font-medium w-1/3">Iteration:</td>
                 <td class="py-1 w-2/3">--</td>
@@ -48,6 +57,14 @@
                 <td class="py-1 font-medium w-1/3">Applied moves count:</td>
                 <td class="py-1 w-2/3">--</td>
             </tr>
+
+            <tr>
+                <td colspan="2" class="pt-3 pb-2">
+                    <div class="border-t border-gray-300"></div>
+                </td>
+            </tr>
+
+            <!-- Cost -->
             <tr>
                 <td class="py-1 font-medium w-1/3">Initial cost:</td>
                 <td class="py-1 w-2/3">--</td>
