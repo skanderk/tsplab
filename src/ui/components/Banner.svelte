@@ -10,5 +10,5 @@
 <p class="text-base opacity-80 text-center mt-1">
     A playground for TSP local search heuristics (By <a
         href="https://skanderkort.com">Skander Kort</a
-    > Nov. 2025)
+    > Nov 2025 -- Jan 2026)
 </p>
