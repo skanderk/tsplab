@@ -24,6 +24,8 @@ export class InvalidCostError extends Error {}
 
 export class TourError extends Error {}
 
+export class TourSegmentError extends Error {}
+
 export class TspInstanceError extends Error {}
 
 export class TspInstanceLoaderError extends Error {}
