@@ -7,7 +7,7 @@
  */
 
 
-import { TspInstanceError } from "../validators/errors";
+import { TspInstanceError } from "../errors";
 import type { Cost, CostMatrix } from "./cost-matrix";
 
 /**

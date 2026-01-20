@@ -8,7 +8,7 @@
 
 
 import { CoreValidator } from "../validators/core-validator";
-import { ArcError, EdgeError } from "../validators/errors";
+import { ArcError, EdgeError } from "../errors";
 
 /**
  * A node in a graph.

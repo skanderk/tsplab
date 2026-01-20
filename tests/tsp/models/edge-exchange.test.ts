@@ -10,7 +10,7 @@
 import { beforeEach, describe, it, expect } from "vitest";
 import { Edge } from "../../../src/tsp/models/graph-types";
 import { CostMatrix } from "../../../src/tsp/models/cost-matrix";
-import { EdgeExchangeError } from "../../../src/tsp/validators/errors";
+import { EdgeExchangeError } from "../../../src/tsp/errors";
 import { EdgeExchange } from "../../../src/tsp/models/edge-exchange";
 
 
@@ -47,8 +47,8 @@ describe("EdgeExchange", () => {
         });
 
         it('accepts an empty edge exchange', () => {
-            const removals = [];
-            const insertions = [];
+            const removals: Edge[] = [];
+            const insertions: Edge[] = [];
 
             const edgeExchange = new EdgeExchange(removals, insertions);
 

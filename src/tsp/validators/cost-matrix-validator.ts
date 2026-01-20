@@ -8,7 +8,7 @@
 
 
 import type { Cost } from '../models/cost-matrix';
-import { InvalidCostError, CostMatrixError } from './errors';
+import { InvalidCostError, CostMatrixError } from '../errors';
 
 
 /**

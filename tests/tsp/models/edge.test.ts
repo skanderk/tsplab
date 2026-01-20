@@ -10,7 +10,7 @@
 import { describe, it, expect } from "vitest";
 
 import { Edge } from "../../../src/tsp/models/graph-types";
-import { EdgeError, InvalidNodeError } from "../../../src/tsp/validators/errors";
+import { EdgeError, InvalidNodeError } from "../../../src/tsp/errors";
 
 describe('Edge', () => {
     describe('constructor', () => {

@@ -9,8 +9,7 @@
 
 import { describe, it, expect } from "vitest";
 import { Arc } from "../../../src/tsp/models/graph-types";
-import { InvalidNodeError, ArcError } from "../../../src/tsp/validators/errors";
-
+import { InvalidNodeError, ArcError } from "../../../src/tsp/errors";
 
 describe('Arc', () => {
     describe('constructor', () => {

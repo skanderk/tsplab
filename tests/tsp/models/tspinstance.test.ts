@@ -10,8 +10,7 @@
 import { beforeEach, describe, it, expect } from "vitest";
 import { CostMatrix } from "../../../src/tsp/models/cost-matrix";
 import { TspInstance } from "../../../src/tsp/models/tsp-instance";
-import { TspInstanceError } from "../../../src/tsp/validators/errors";
-
+import { TspInstanceError } from    "../../../src/tsp/errors";
 
 
 describe("TspInstance", () => {

@@ -12,7 +12,7 @@ import { beforeEach, describe, it, expect } from "vitest";
 import { Arc, type Node } from "../../../src/tsp/models/graph-types";
 import { CostMatrix } from "../../../src/tsp/models/cost-matrix";
 import { Tour } from "../../../src/tsp/models/tour";
-import { TourError } from "../../../src/tsp/validators/errors";
+import { TourError } from "../../../src/tsp/errors";
 
 describe('Tour', () => {
     let nodes: Array<Node>;

@@ -8,7 +8,7 @@
 
 
 import { type Node } from "../models/graph-types";
-import { InvalidCostError, InvalidNodeError } from "./errors";
+import { InvalidNodeError } from "../errors";
 
 /**
  * Provides validation utilities for models.

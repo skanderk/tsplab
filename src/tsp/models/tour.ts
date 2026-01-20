@@ -7,7 +7,7 @@
  */
 
 
-import { TourError } from "../validators/errors";
+import { TourError } from "../errors";
 import type { CostMatrix } from "./cost-matrix";
 import { Arc, type Node } from "./graph-types";
 

@@ -8,7 +8,7 @@
 
 import { beforeEach, describe, it, expect } from "vitest";
 import { CostMatrix } from "../../../src/tsp/models/cost-matrix";
-import { InvalidNodeError, CostMatrixError } from "../../../src/tsp/validators/errors";
+import { InvalidNodeError, CostMatrixError } from "../../../src/tsp/errors";
 
 describe("CostMatrix", () => {
     let costMatrix: CostMatrix;

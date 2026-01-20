@@ -9,7 +9,7 @@
 
 import { describe, it, expect } from "vitest";
 import { CostMatrixValidator } from "../../../src/tsp/validators/cost-matrix-validator";
-import { CostMatrixError, InvalidCostError } from "../../../src/tsp/validators/errors";
+import { CostMatrixError, InvalidCostError } from   "../../../src/tsp/errors";
 
 describe('CostMatrixValidator', () => {
     describe('validateValues', () => {
@@ -40,7 +40,7 @@ describe('CostMatrixValidator', () => {
         });
 
         it('throws when costs is empty', () => {
-            const costs = [];
+            const costs: number[][] = [];
 
             expect(() => CostMatrixValidator.validateStructure(costs)).toThrow(CostMatrixError);
         });

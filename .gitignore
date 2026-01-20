@@ -13,6 +13,8 @@ assets
 dist-ssr
 *.local
 
+# Github files
+.github/
 
 # Editor directories and files
 .vscode/*

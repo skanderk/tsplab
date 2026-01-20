@@ -7,7 +7,7 @@
  */
 
 import { Edge } from "./graph-types";
-import { EdgeExchangeError } from "../validators/errors";
+import { EdgeExchangeError } from "../errors";
 import type { CostMatrix } from "./cost-matrix";
 
 /**
