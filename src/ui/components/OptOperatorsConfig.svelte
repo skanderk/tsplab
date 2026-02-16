@@ -4,7 +4,7 @@
 </script>
 
 <div
-    class="sk-card p-4 border border-gray-300 rounded-lg shadow-lg bg-white w-full max-w-[900px] mx-auto !bg-[#f7f3e3]"
+    class="sk-card p-4 border border-gray-300 rounded-lg shadow-lg bg-white w-full !bg-[#f7f3e3]"
 >
     <div class="flex items-center gap-3">
         <CirclePlus class="text-blue-500 w-6 h-6" />

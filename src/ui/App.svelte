@@ -9,30 +9,27 @@
   import TourGraph from "./components/TourGraph.svelte";
 </script>
 
-<div
-  class="w-screen flex flex-col items-center py-10
-            border border-gray-300 rounded-xl shadow-xl
-            !bg-[#fdfcf5]"
->
-  <div class="w-full flex flex-col items-center gap-6 max-w-[900px] mx-auto">
-    <Banner />
-
-    <SolverConfig />
-
-    <OptOperatorsConfig />
-  </div>
-
-  <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
-    <TourGraph />
-
-    <div class="flex flex-col gap-6">
-      <RunSummary />
-
-      <CostChart />
+<div class="w-full py-10 px-4">
+  <div
+    class="w-full max-w-[1200px] mx-auto flex flex-col gap-6
+              border border-gray-300 rounded-xl shadow-xl
+              !bg-[#fdfcf5] p-4 md:p-6"
+  >
+    <div class="w-full flex flex-col gap-6">
+      <Banner />
+      <SolverConfig />
+      <OptOperatorsConfig />
     </div>
+
+    <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-6 my-1">
+      <TourGraph />
+      <div class="flex flex-col gap-6">
+        <RunSummary />
+        <CostChart />
+      </div>
+    </div>
+
+    <Metrics />
+    <About />
   </div>
-
-  <Metrics />
-
-  <About />
 </div>

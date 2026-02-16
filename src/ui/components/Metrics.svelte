@@ -3,7 +3,7 @@
 </script>
 
 <div
-    class="sk-card p-4 max-w-[1200px] mx-auto w-full border border-gray-300 rounded-lg shadow-lg !bg-[#dfe2f2]"
+    class="sk-card p-4 w-full border border-gray-300 rounded-lg shadow-lg !bg-[#dfe2f2]"
 >
     <div class="flex items-center gap-3">
         <PencilRuler class="text-blue-500 w-6 h-6" />
