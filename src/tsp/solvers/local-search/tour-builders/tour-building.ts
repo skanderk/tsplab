@@ -1,10 +1,11 @@
 /*
  * Author: Skander Kort
- * Created: 2026-01-20 18:21:52
- * Modified: 2026-01-22 14:06:36
+ * Created: 2026-02-16 07:16:41
+ * Modified: 2026-02-16 09:38:17
  * 
  * Licensed under the Apache License, Version 2.0
  */
+
 
 import { TspInstance } from "../../../models/tsp-instance";
 import { Tour } from "../../../models/tour";
@@ -16,7 +17,6 @@ import type { Nameable } from "../../nameable";
 export interface TourBuilder extends Nameable {
     build(tspInstance: TspInstance): Tour;
 }
-
 
 /**
  * Mapping of tour building algorithm ids to their implementations.

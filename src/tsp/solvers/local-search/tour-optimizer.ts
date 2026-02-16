@@ -1,7 +1,7 @@
 /*
  * Author: Skander Kort
  * Created: 2026-01-22 10:28:11
- * Modified: 2026-01-22 14:06:12
+ * Modified: 2026-02-16 09:32:58
  * 
  * Licensed under the Apache License, Version 2.0
  */
@@ -11,6 +11,7 @@ import { Tour } from "../../models/tour";
 import type { Nameable } from "../nameable";
 import type { Move } from "../../models/move";
 import type { TspInstance } from "../../models/tsp-instance";
+import type { Stoppable } from "../stoppable";
 
 /**
  * Interface for optimizing a TSP tour.
@@ -19,14 +20,14 @@ import type { TspInstance } from "../../models/tsp-instance";
  * @param tour - The initial tour to optimize.
  * @returns A new optimized tour.
  */
-interface TourOptimizer {
+export interface TourOptimizer {
     optimize(tour: Tour, tspInstance: TspInstance): Tour;
 }
 
 /**
  * Implementation of a local search tour optimizer.
  */
-export class LocalSearchOptimizer implements TourOptimizer {
+export class LocalSearchOptimizer implements TourOptimizer, Stoppable {
 
     private searchState: SearchState;
 
@@ -37,7 +38,8 @@ export class LocalSearchOptimizer implements TourOptimizer {
     public constructor(
         private operators: Array<OptimizationOperator>,
         private operatorSelector: OperatorSelection,
-        private moveSelector: MoveSelectionStrategy) {
+        private moveSelector: MoveSelectionStrategy,
+        private readonly optimizerObserver: LocalSearchOptimizerObserver) {
         this.searchState = { ...initSearchState };
     }
 
@@ -49,18 +51,41 @@ export class LocalSearchOptimizer implements TourOptimizer {
         return tour;
     }
 
-    public setOperators(operators: Array<OptimizationOperator>) {
+    public setOperators(operators: Array<OptimizationOperator>): LocalSearchOptimizer {
         this.operators = operators;
+        return this;
     }
 
-    public setOperatorSelector(selector: OperatorSelection) {
+    public setOperatorSelector(selector: OperatorSelection): LocalSearchOptimizer {
         this.operatorSelector = selector;
+        return this;
     }
 
-    public setMoveSelector(selector: MoveSelectionStrategy) {
+    public setMoveSelector(selector: MoveSelectionStrategy): LocalSearchOptimizer {
         this.moveSelector = selector;
+        return this;
+    }
+
+    public stop(): void {
+        // TODO Implent stop optimization logic
+    }
+
+    public pause(): void {
+        // TODO implement pause optimization logic.
+    }
+
+    public resume(): void {
+        // Implement resume optimization logic.
     }
 }
+
+export interface LocalSearchOptimizerObserver {
+    /**
+     * Called each time a move has been selected.
+     */
+    onMoveSelected: (selectedMove: Move, searchState: SearchState) => void;
+}
+
 
 /**
  * Interface for optimization operators.
@@ -109,7 +134,6 @@ export class ThreeOpt implements OptimizationOperator {
         return [];
     }
 }
-
 
 /**
  * Interface for operator selection strategies.
@@ -173,9 +197,12 @@ export interface SearchState {
 }
 
 
+/**
+ * Keeps track of the evolution of local search.
+ */
 const initSearchState: SearchState = {
     iterations: 0,
     bestCost: Infinity,
     noImprovementCount: 0,
     lastOperatorIdx: -1
-};
+}
