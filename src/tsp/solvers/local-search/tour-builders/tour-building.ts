@@ -33,7 +33,6 @@ export type TourBuildingAlgorithm = {
  * Stub implementations of TourBuilder for different algorithms.
  */
 
-
 export class RandomTourBuilder implements TourBuilder {
     name: string = 'Random tour algorithm';
 

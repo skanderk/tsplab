@@ -7,8 +7,7 @@
   import RunSummary from "./components/RunSummary.svelte";
   import SolverConfig from "./components/SolverConfig.svelte";
   import TourGraph from "./components/TourGraph.svelte";
-
-  
+  import { tspInstances } from "./state/tsp-instances";
 </script>
 
 <div class="w-full py-10 px-4">
