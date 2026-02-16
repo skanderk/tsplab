@@ -8,7 +8,7 @@
     <Waypoints class="text-red-700 w-10 h-10" />
 </div>
 <p class="text-base opacity-80 text-center mt-1">
-    A playground for TSP local search heuristics (By <a
+    A playground for TSP local search heuristics (Built by <a
         href="https://skanderkort.com">Skander Kort</a
-    > Nov 2025 -- Jan 2026)
+    > Nov 2025 -- Feb 2026)
 </p>

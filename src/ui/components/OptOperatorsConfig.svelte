@@ -4,10 +4,10 @@
 </script>
 
 <div
-    class="sk-card p-4 border border-gray-300 rounded-lg shadow-lg bg-white w-full !bg-[#f7f3e3]"
+    class="sk-card p-4 border border-slate-300 rounded-lg shadow-lg bg-white w-full !bg-[#eaf2ff]"
 >
     <div class="flex items-center gap-3">
-        <CirclePlus class="text-blue-500 w-6 h-6" />
+        <CirclePlus class="text-indigo-600 w-6 h-6" />
         <header class="text-xl font-semibold text-left mb-4">
             Optimization Operators
         </header>
@@ -16,12 +16,12 @@
         <div class="flex flex-wrap gap-4 items-center justify-center">
             <!-- Operator Buttons: Green + White -->
             <button
-                class="px-3 py-2 rounded-lg !bg-green-600 text-white font-semibold hover:!bg-green-700"
+                class="px-3 py-2 rounded-lg !bg-indigo-600 text-white font-semibold hover:!bg-indigo-700"
             >
                 2-Opt
             </button>
             <button
-                class="px-3 py-2 rounded-lg !bg-green-600 text-white font-semibold hover:!bg-green-700"
+                class="px-3 py-2 rounded-lg !bg-indigo-600 text-white font-semibold hover:!bg-indigo-700"
             >
                 3-Opt
             </button>

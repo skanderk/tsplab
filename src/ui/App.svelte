@@ -7,13 +7,15 @@
   import RunSummary from "./components/RunSummary.svelte";
   import SolverConfig from "./components/SolverConfig.svelte";
   import TourGraph from "./components/TourGraph.svelte";
+
+  
 </script>
 
 <div class="w-full py-10 px-4">
   <div
     class="w-full max-w-[1200px] mx-auto flex flex-col gap-6
-              border border-gray-300 rounded-xl shadow-xl
-              !bg-[#fdfcf5] p-4 md:p-6"
+              border border-slate-300 rounded-xl shadow-xl
+              !bg-[#f8fafc] p-4 md:p-6"
   >
     <div class="w-full flex flex-col gap-6">
       <Banner />

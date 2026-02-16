@@ -3,10 +3,10 @@
 </script>
 
 <div
-    class="sk-card p-4 w-full border border-gray-300 rounded-lg shadow-lg !bg-[#dfe2f2]"
+    class="sk-card p-4 w-full border border-slate-300 rounded-lg shadow-lg !bg-[#eef2f7]"
 >
     <div class="flex items-center gap-3">
-        <PencilRuler class="text-blue-500 w-6 h-6" />
+        <PencilRuler class="text-slate-700 w-6 h-6" />
         <header class="text-xl font-semibold text-left mb-4">Run Metric</header>
     </div>
 
