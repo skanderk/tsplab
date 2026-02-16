@@ -23,6 +23,10 @@
                 <td class="py-1 w-2/3">--</td>
             </tr>
             <tr>
+                <td class="py-1 font-medium w-1/3">Best known cost:</td>
+                <td class="py-1 w-2/3">--</td>
+            </tr>
+            <tr>
                 <td class="py-1 font-medium w-1/3">Init heuristic:</td>
                 <td class="py-1 w-2/3">--</td>
             </tr>
@@ -39,7 +43,7 @@
                 <td class="py-1 w-2/3">--</td>
             </tr>
             <tr>
-                <td class="py-1 font-medium w-1/3">Elapsed time:</td>
+                <td class="py-1 font-medium w-1/3">Run time:</td>
                 <td
                     class="py-1 font-bold text-emerald-700 bg-emerald-100 px-2 rounded w-2/3"
                     >--</td
@@ -54,7 +58,11 @@
                 <td class="py-1 w-2/3">--</td>
             </tr>
             <tr>
-                <td class="py-1 font-medium w-1/3">Applied moves count:</td>
+                <td class="py-1 font-medium w-1/3">|Applied moves|:</td>
+                <td class="py-1 w-2/3">--</td>
+            </tr>
+            <tr>
+                <td class="py-1 font-medium w-1/3">|Evaluated moves|:</td>
                 <td class="py-1 w-2/3">--</td>
             </tr>
 
