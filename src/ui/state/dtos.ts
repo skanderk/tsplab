@@ -10,11 +10,13 @@
 /**
  * Props type for the SolverConfig component.
  */
-interface SolverConfig {
-    tspInstance: string[]; // Names of the available TSP instances.
-    tourBuilders: string[]; // Names of the available tour builders.
-    currentTspInstance: string; // Name of the currently selected TSP instance.
-    currentTourBuilder: string; // Name of the currently selected initial tour builder.
+
+export type TspInstanceSize = "T" | "S" | "M" | "L";
+export type TourBuilderId = "randomTour";
+export interface SolverConfigProps {
+    tspInstanceSize: TspInstanceSize; // Selected TSP instance size bucket.
+    tspInstance: string; // Name of the currently selected TSP instance.
+    tourBuilder: TourBuilderId; // ID of the currently selected initial tour builder.
     maxIterations: number; // Maximum number of local-search iterations.
     sleepDurationSec: number; // Delay between local-search steps, in seconds.
 }
@@ -22,7 +24,7 @@ interface SolverConfig {
 /**
  * Props type for the OptOperatorsConfig component.
  */
-interface OptOperatorsConfig {
+export interface OptOperatorsConfigProps {
     randomizeOperators: boolean; // Whether operators are sampled randomly instead of fixed order.
     stopOnFirstMove: boolean; // Whether search stops at the first improving move in a neighborhood.
     operatorSeq: string[]; // Sequence of the selected optimization operators.
@@ -31,13 +33,13 @@ interface OptOperatorsConfig {
 /**
  * Props types for the RunSummary component.
  */
-interface TspInstanceSummary {
+export interface TspInstanceSummaryProps {
     instName: string; // Name of the active TSP instance.
     instDescription: string; // Short description of the active TSP instance.
     tourBuilder: string; // Name of the initialization heuristic used for this run.
 }
 
-interface LocalSearchSummary {
+export interface LocalSearchSummaryProps {
     iteration: number; // Index of the current iteration
     runTimeSec: number; // Time elapsed since the start of solving the TSP instance exclusing sleep periods.
     appliedOperator: string; // Name of the optimization operator that has beed selected.
@@ -46,7 +48,7 @@ interface LocalSearchSummary {
     movesEvaluatedCount: number; // Total number of moves that have been evaluated. 
 }
 
-interface CostSummary {
+export interface CostSummaryProps {
     initialCost: number; // Cost before applying local search.
     lastCost: number; // Most recent tour cost.
     lastCostDecrease: number; // Last observed improvement amount in cost units.
@@ -55,12 +57,12 @@ interface CostSummary {
 /**
  * Props type aliases for the CostChart component.
  */
-type IterationIndex = number;
-type Cost = number;
-type IterationCostsDto = Array<[IterationIndex, Cost]>;
+export type IterationIndex = number;
+export type Cost = number;
+export type IterationCostsDto = Array<[IterationIndex, Cost]>;
 
-type RunId = string;
-type CostChartDto = Array<[RunId, IterationCostsDto]>;
+export type RunId = string;
+export  type CostChartDto = Array<[RunId, IterationCostsDto]>;
 
 // TODO Add types to interact with TourGraph component, if necessary.
 
@@ -68,7 +70,7 @@ type CostChartDto = Array<[RunId, IterationCostsDto]>;
  * Props type for the Metrics component.
  */
 
-interface RunMetrics {
+export  interface RunMetricsProps {
     runId: RunId; // Unique identifier of the run.
     runConfig: string; // Human-readable run configuration (e.g., builder, operator set, selection strategies).
     tourCost: number; // Final tour cost for this run.
@@ -78,4 +80,4 @@ interface RunMetrics {
     totalIteratiions: number; // Total number of iterations executed in this run.
 }
 
-type RunsMetrics = Array<RunMetrics>;
+export type RunsMetrics = Array<RunMetricsProps>;

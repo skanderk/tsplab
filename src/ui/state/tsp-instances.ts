@@ -129,8 +129,8 @@ const tspInstancesXL = [
 ];
 
 export const tspInstances = {
-    "Tiny (< 100)": tspInstancesTiny,
-    "Small (101-300)": tspInstancesSmall,
-    "Medium (301-1,000)": tspInstancesMedium,
-    "Large (1,001-10,000)": tspInstancesLarge
+    "T": ["Tiny (< 100)", tspInstancesTiny],
+    "S": ["Small (101-300)", tspInstancesSmall],
+    "M": ["Medium (301-1,000)", tspInstancesMedium],
+    "L": ["Large (1,001-10,000)", tspInstancesLarge]
 }

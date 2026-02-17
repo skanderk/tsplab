@@ -7,7 +7,23 @@
   import RunSummary from "./components/RunSummary.svelte";
   import SolverConfig from "./components/SolverConfig.svelte";
   import TourGraph from "./components/TourGraph.svelte";
-  import { tspInstances } from "./state/tsp-instances";
+    import type { SolverConfigProps } from "./state/dtos";
+  
+  // Initial states
+  import {initSolverConfig} from "./state/initial-states";
+
+  // States - DTOs
+  let solverConfig = $state<SolverConfigProps>(initSolverConfig);
+
+  // Callback properties
+  function onSolverConfigChange(newConfig: SolverConfigProps): void {
+    Object.assign(solverConfig, newConfig);
+  }
+
+  function onTspInstanceChange(newTspInstance: string): void {
+    solverConfig.tspInstance = newTspInstance;
+  }
+
 </script>
 
 <div class="w-full py-10 px-4">
@@ -18,7 +34,11 @@
   >
     <div class="w-full flex flex-col gap-6">
       <Banner />
-      <SolverConfig />
+      <SolverConfig
+        config={solverConfig}
+        onConfigChange={onSolverConfigChange}
+        onTspInstanceChange={onTspInstanceChange}
+      />
       <OptOperatorsConfig />
     </div>
 
