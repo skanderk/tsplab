@@ -4,7 +4,9 @@
   import CostChart from "./components/CostChart.svelte";
   import Metrics from "./components/Metrics.svelte";
   import OptOperatorsConfig from "./components/OptOperatorsConfig.svelte";
-  import RunSummary from "./components/RunSummary.svelte";
+  import InstanceDetails from "./components/InstanceDetails.svelte";
+  import LocalSearchSummary from "./components/LocalSearchSummary.svelte";
+  import CostStats from "./components/CostStats.svelte";
   import SolverConfig from "./components/SolverConfig.svelte";
   import TourGraph from "./components/TourGraph.svelte";
     import type { SolverConfigProps } from "./state/dtos";
@@ -28,7 +30,7 @@
 
 <div class="w-full py-10 px-4">
   <div
-    class="w-full max-w-[1200px] mx-auto flex flex-col gap-6
+    class="w-full max-w-[1280px] mx-auto flex flex-col gap-6
               border border-slate-300 rounded-xl shadow-xl
               !bg-[#f8fafc] p-4 md:p-6"
   >
@@ -47,7 +49,11 @@
         <TourGraph />
         <CostChart />
       </div>
-      <RunSummary />
+      <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6">
+        <InstanceDetails />
+        <LocalSearchSummary />
+        <CostStats />
+      </div>
     </div>
 
     <Metrics />
