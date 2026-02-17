@@ -42,12 +42,12 @@
       <OptOperatorsConfig />
     </div>
 
-    <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-6 my-1">
-      <TourGraph />
-      <div class="flex flex-col gap-6">
-        <RunSummary />
+    <div class="w-full flex flex-col gap-6 my-1">
+      <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
+        <TourGraph />
         <CostChart />
       </div>
+      <RunSummary />
     </div>
 
     <Metrics />
