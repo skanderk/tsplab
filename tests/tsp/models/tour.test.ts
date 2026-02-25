@@ -194,4 +194,36 @@ describe('Tour', () => {
             expect(tour.last).to.equal(4);
         });
     });
+
+    describe('isFullTour', () => {
+        it('returns true if this tour is a full tour', () => {
+            // tour: 3 → 7 → 1 → 9 → 0 → 5 → 8 → 2 → 6 → 4
+            const tour = new Tour(nodes);
+            
+            expect(tour.isFullTour(10)).to.be.true;
+        });
+
+        it('returns false if this tour is a partial tour', () => {
+            
+            const partialTour = new Tour([2, 1, 0]);
+            
+            expect(partialTour.isFullTour(10)).to.be.false;
+        });
+
+        it('returns false if this tour is not a permutation of all values in (0, nodesCount(', () => {
+            
+            const partialTour = new Tour([0, 1, 2, 3]);
+            
+            expect(partialTour.isFullTour(3)).to.be.false;
+        });
+
+        it('throws when nodes count is invalid', () => {
+            const tour = new Tour(nodes);
+            
+            expect(() => tour.isFullTour(1)).to.throw(TourError);
+            expect(() => tour.isFullTour(1)).to.throw(/Invalid nodes count/);
+        });
+
+
+    }); 
 })

@@ -13,7 +13,10 @@ import { Arc, type Node } from "./graph-types";
 
 
 /**
- * A tour of nodes (cities).
+ * A tour of nodes (cities) potentially partial.
+ * An implementation of a tour as a sequence of nodes. 
+ * This is a simple implementation that allows for easy validation and cost calculation, 
+ * but does not allow for efficient move operations (e.g. 2-opt, 3-opt, etc.). For efficient move operations, see the TourLinkedList class.
  */
 export class Tour {
     /**
@@ -23,6 +26,28 @@ export class Tour {
      */
     public constructor(readonly nodes: readonly Node[]) {
         Tour.validate(nodes);
+    }
+
+    /**
+     * Returns true if this tour is a full tour, i.e. it is a permutation of values in 0 to nodesCount - 1.
+     */
+    public isFullTour(nodesCount: number): boolean {
+        if (nodesCount < 2) {
+            throw new TourError(`Invalid nodes count, must be at least 2, got ${nodesCount}!`);
+        }
+
+        const nodes = new Set(this.nodes);
+        if (nodes.size !== nodesCount) {
+            return false;
+        }
+
+        for (let i = 0; i < nodesCount; i++) {
+            if (!nodes.has(i)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -61,8 +86,9 @@ export class Tour {
 
     /**
      * 
-     * @param nodePosition The node at position <nodePosition> in this tour.
+     * @param nodePosition 
      * @throws {TourError} if <nodePosition> is not a valid position in this tour.
+     * @returns The node at position <nodePosition> in this tour.
      */
     public at(nodePosition: number): Node {
         this.assertValidNodePosition(nodePosition);
@@ -90,8 +116,9 @@ export class Tour {
 
     /**
      * 
-     * @param nodePosition The node next to the node at position <nodePosition> in this tour.
+     * @param nodePosition 
      * @throws {TourError} if <nodePosition> is not a valid position in this tour.
+     * @returns The node next to the one at position <nodePosition> in this tour.
      */
     public next(nodePosition: number): Node {
         this.assertValidNodePosition(nodePosition);
@@ -102,8 +129,9 @@ export class Tour {
 
     /**
      * 
-     * @param nodePosition The node previous to the node at position <nodePosition> in this tour.
+     * @param nodePosition
      * @throws {TourError} if <nodePosition> is not a valid position in this tour.
+     * @returns The node previous to the one at position <nodePosition> in this tour.
      */
     public previous(nodePosition: number): Node {
         this.assertValidNodePosition(nodePosition);
