@@ -58,7 +58,7 @@
 
     function onTourBuilderChange(event: Event): void {
         const selectedTourBuilder = (event.currentTarget as HTMLSelectElement).value as TourBuilderId;
-        updateConfig({ tourBuilder: selectedTourBuilder });
+        updateConfig({ tourBuilderId: selectedTourBuilder });
     }
 </script>
 
@@ -107,7 +107,7 @@
                 <select
                     id="init-heuristic-selector"
                     class="w-40 px-3 py-2 rounded-lg border border-slate-300 bg-white shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-400 hover:border-slate-400"
-                    value={config.tourBuilder}
+                    value={config.tourBuilderId}
                     onchange={onTourBuilderChange}
                 >
                     {#each tourBuilderOptions as tourBuilder}

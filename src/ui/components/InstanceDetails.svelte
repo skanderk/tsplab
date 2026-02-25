@@ -1,5 +1,8 @@
 <script lang="ts">
     import { Info } from "@lucide/svelte";
+    import { type InstanceDetailsProps } from "../state/dtos";
+
+    let { details } : {details: InstanceDetailsProps} = $props();
 </script>
 
 <div
@@ -14,19 +17,19 @@
         <tbody class="divide-y divide-slate-200">
             <tr>
                 <td class="py-1 font-medium w-1/3">Instance name:</td>
-                <td class="py-1 w-2/3">--</td>
+                <td class="py-1 w-2/3">{details.instName}</td>
             </tr>
             <tr>
                 <td class="py-1 font-medium w-1/3">Instance description:</td>
-                <td class="py-1 w-2/3">--</td>
+                <td class="py-1 w-2/3">{details.instDescription}</td>
             </tr>
             <tr>
                 <td class="py-1 font-medium w-1/3">Best known cost:</td>
-                <td class="py-1 w-2/3">--</td>
+                <td class="py-1 w-2/3">{details.bestKnownCost}</td>
             </tr>
             <tr>
                 <td class="py-1 font-medium w-1/3">Init heuristic:</td>
-                <td class="py-1 w-2/3">--</td>
+                <td class="py-1 w-2/3">{details.tourBuilderName}</td>
             </tr>
         </tbody>
     </table>

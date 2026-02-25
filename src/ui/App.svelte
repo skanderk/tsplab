@@ -9,23 +9,50 @@
   import CostStats from "./components/CostStats.svelte";
   import SolverConfig from "./components/SolverConfig.svelte";
   import TourGraph from "./components/TourGraph.svelte";
-    import type { SolverConfigProps } from "./state/dtos";
-  
+  import type {
+    SolverConfigProps,
+    InstanceDetailsProps,
+    LocalSearchSummaryProps,
+    CostSummaryProps,
+  } from "./state/dtos";
+
   // Initial states
-  import {initSolverConfig} from "./state/initial-states";
+  import {
+    initSolverConfig,
+    initInstanceDetails,
+    initLocalSearchSummary,
+    initCostSummary
+  } from "./state/initial-states";
+
+  // Map of tour builder IDs to their display names
+  // TODO - this should be centralized/shared between App and SolverConfig.svelte.
+  export const tourBuilderDisplayNames: Record<string, string> = {
+    nearestNeighbor: "Nearest Neighbor",
+    farthestInsertion: "Farthest Insertion",
+    randomTour: "Random",
+    cheapestInsertion: "Cheapest Insertion",
+    christofides: "Christofides",
+  };
 
   // States - DTOs
   let solverConfig = $state<SolverConfigProps>(initSolverConfig);
+  let instanceDetails = $state<InstanceDetailsProps>(initInstanceDetails);
+  let localSearchSummary = $state<LocalSearchSummaryProps>(
+    initLocalSearchSummary,
+  );
+  let costSummary = $state<CostSummaryProps>(initCostSummary);
 
   // Callback properties
   function onSolverConfigChange(newConfig: SolverConfigProps): void {
     Object.assign(solverConfig, newConfig);
+    instanceDetails.instName = solverConfig.tspInstance;
+    instanceDetails.tourBuilderName =
+      tourBuilderDisplayNames[solverConfig.tourBuilderId];
   }
 
   function onTspInstanceChange(newTspInstance: string): void {
     solverConfig.tspInstance = newTspInstance;
   }
-
 </script>
 
 <div class="w-full py-10 px-4">
@@ -39,7 +66,7 @@
       <SolverConfig
         config={solverConfig}
         onConfigChange={onSolverConfigChange}
-        onTspInstanceChange={onTspInstanceChange}
+        {onTspInstanceChange}
       />
       <OptOperatorsConfig />
     </div>
@@ -50,9 +77,9 @@
         <CostChart />
       </div>
       <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6">
-        <InstanceDetails />
-        <LocalSearchSummary />
-        <CostStats />
+        <InstanceDetails details={instanceDetails} />
+        <LocalSearchSummary summary={localSearchSummary} />
+        <CostStats stats={costSummary}/>
       </div>
     </div>
 

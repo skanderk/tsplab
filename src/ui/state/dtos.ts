@@ -16,10 +16,11 @@ export type TourBuilderId = "randomTour";
 export interface SolverConfigProps {
     tspInstanceSize: TspInstanceSize; // Selected TSP instance size bucket.
     tspInstance: string; // Name of the currently selected TSP instance.
-    tourBuilder: TourBuilderId; // ID of the currently selected initial tour builder.
+    tourBuilderId: TourBuilderId; // ID of the currently selected initial tour builder.
     maxIterations: number; // Maximum number of local-search iterations.
     sleepDurationSec: number; // Delay between local-search steps, in seconds.
 }
+
 
 /**
  * Props type for the OptOperatorsConfig component.
@@ -31,14 +32,18 @@ export interface OptOperatorsConfigProps {
 }
 
 /**
- * Props types for the RunSummary component.
+ * Props types for the InstanceDetails component.
  */
-export interface TspInstanceSummaryProps {
+export interface InstanceDetailsProps {
     instName: string; // Name of the active TSP instance.
     instDescription: string; // Short description of the active TSP instance.
-    tourBuilder: string; // Name of the initialization heuristic used for this run.
+    bestKnownCost: number; // Lowest cost known of the active TSP instance.
+    tourBuilderName: string; // Name of the initialization heuristic used for this run.
 }
 
+/**
+ * Props types for the LocalSearchSummary component.
+ */
 export interface LocalSearchSummaryProps {
     iteration: number; // Index of the current iteration
     runTimeSec: number; // Time elapsed since the start of solving the TSP instance exclusing sleep periods.
@@ -48,6 +53,9 @@ export interface LocalSearchSummaryProps {
     movesEvaluatedCount: number; // Total number of moves that have been evaluated. 
 }
 
+/**
+ * Props types for the CostSummary component.
+ */
 export interface CostSummaryProps {
     initialCost: number; // Cost before applying local search.
     lastCost: number; // Most recent tour cost.

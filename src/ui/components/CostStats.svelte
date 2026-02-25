@@ -1,5 +1,8 @@
 <script lang="ts">
     import { BadgeDollarSign } from "@lucide/svelte";
+    import { type CostSummaryProps } from "../state/dtos";
+
+    let { stats } : {stats: CostSummaryProps} = $props();
 </script>
 
 <div
@@ -14,16 +17,16 @@
         <tbody class="divide-y divide-slate-200">
             <tr>
                 <td class="py-1 font-medium w-1/3">Initial cost:</td>
-                <td class="py-1 w-2/3">--</td>
+                <td class="py-1 w-2/3">{stats.initialCost}</td>
             </tr>
             <tr>
                 <td class="py-1 font-medium w-1/3">Last cost decrease:</td>
-                <td class="py-1 w-2/3">--</td>
+                <td class="py-1 w-2/3">{stats.lastCostDecrease}</td>
             </tr>
             <tr>
                 <td class="py-1 font-medium w-1/3">Current cost:</td>
                 <td class="py-1 font-bold text-rose-700 bg-rose-100 px-2 rounded w-2/3">
-                    --
+                    {stats.lastCost}
                 </td>
             </tr>
         </tbody>
