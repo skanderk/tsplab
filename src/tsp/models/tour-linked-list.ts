@@ -1,9 +1,17 @@
+/*
+ * Author: Skander Kort
+ * Created: 2026-02-25 12:59:48
+ * Modified: 2026-02-27 06:10:07
+ * 
+ * Licensed under the Apache License, Version 2.0
+ */
+
 import { type Node } from "./graph-types";
 import { Tour  }  from "./tour";
 import { TourError } from "../errors";
 
 /**
- * A tour node, emulates a doubly linked list. Allows the implementation of moves.
+ * A tour node, emulates a doubly-linked list. Allows the implementation of efficient moves.
  */
 export interface TourNode {
     id: Node,
@@ -24,12 +32,12 @@ export class TourLinkedList {
      * @param tour A full valid TSP tour. 
      */
     public constructor(tour: Tour) {
-        const size = tour.nodes.length;
-        if (!tour.isFullTour(size)) {
+        const nodesCount = tour.nodes.length;
+        if (!tour.isFullTour(nodesCount)) {
             throw new TourError(`Tour must be a full tour to be converted to a linked list!`);
         }   
         
-        this.nodes = Array.from(tour.nodes, (nodeIdx, i) => ({ id: nodeIdx, next: (i + 1) % size, previous: (i - 1 + size) % size}));
+        this.nodes = Array.from(tour.nodes, (nodeIdx, i) => ({ id: nodeIdx, next: (i + 1) % nodesCount, previous: (i - 1 + nodesCount) % nodesCount}));
     }
 
     /**
@@ -44,5 +52,40 @@ export class TourLinkedList {
         }
 
         return new Tour(tourNodes);
+    }
+
+    /**
+     * @returns The next node in the tour after the given node position.
+     */
+    public next(nodePosition: number): Node {
+        this.assertValidNodePosition(nodePosition);
+        return this.nodes[this.nodes[nodePosition].next].id;   
+    }
+
+    /**
+     * 
+     *  @throws {TourError} if <nodePosition> is not a valid position in this tour.
+     */
+    private assertValidNodePosition(nodePosition: number): void {
+        if (nodePosition < 0 || nodePosition >= this.nodes.length) {
+            throw new TourError(`Invalid node position, position must be in [0, length(nodes)[, got ${nodePosition}!`);
+        }
+    }
+
+    /**
+     * @returns The previous node in the tour after a given node position.
+     */
+    public previous(nodePosition: number): Node {
+        this.assertValidNodePosition(nodePosition);
+
+        return this.nodes[this.nodes[nodePosition].previous].id;   
+    }
+    
+    /**
+     * 
+     * @returns The number of nodes in this tour.
+     */
+    public size(): number {
+        return this.nodes.length;
     }
 }
