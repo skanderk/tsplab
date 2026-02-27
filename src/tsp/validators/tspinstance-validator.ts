@@ -22,7 +22,7 @@ export class TspInstanceValidator {
                 name: { type: "string" },
                 comment: { type: "string" },
                 dimension: { type: "number" },
-                bestSolutionCost: { type: "number" },
+                bestKnownCost: { type: "number" },
                 distancesMatrix: {
                     "type": "array",
                     "items": {
@@ -33,7 +33,7 @@ export class TspInstanceValidator {
                     }
                 }
             },
-            required: ["name", "comment", "dimension", "bestSolutionCost", "distancesMatrix"],
+            required: ["name", "comment", "dimension", "bestKnownCost", "distancesMatrix"],
             additionalProperties: true,
         };
 
