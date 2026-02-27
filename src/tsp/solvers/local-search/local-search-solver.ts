@@ -19,7 +19,7 @@ import type { OptimizationOperator, OperatorSelection, MoveSelectionStrategy } f
  * Local-search TSP solver that builds an initial tour, iteratively improves it via an optimizer,
  * and exposes stop/pause/resume controls through a delegated execution observer.
  */
-class LocalSearchSolver implements Solver, Stoppable {
+export class LocalSearchSolver implements Solver, Stoppable {
     public constructor(
         private tourBuilder: TourBuilder,
         private tourOptimizer: LocalSearchOptimizer,
@@ -27,8 +27,13 @@ class LocalSearchSolver implements Solver, Stoppable {
         private readonly solverObserver: LocalSearchSolverObserver) { }
 
     public solve(tspInstance: TspInstance): Tour {
-        // TODO Implement me!
-        return new Tour([]);
+        this.executionObs.onStarted();
+
+        const initialTour = this.tourBuilder.build(tspInstance);
+        this.solverObserver.onIntialTourBuilt(initialTour);
+
+        const optimizedTour = this.tourOptimizer.optimize(initialTour, tspInstance);
+        return optimizedTour;
     }
 
     public setTourBuilder(newBuilder: TourBuilder): LocalSearchSolver {
@@ -54,15 +59,18 @@ class LocalSearchSolver implements Solver, Stoppable {
 
     // Managing solver execution
     public stop(): void {
-        // TODO Implement me!
+        this.tourOptimizer.stop();
+        this.executionObs.onStopped();
     }
 
     public pause(): void {
-        // TODO Implement me!
+        this.tourOptimizer.pause();
+        this.executionObs.onPaused();
     }
 
     public resume(): void {
-        // TODO Implement me!
+        this.tourOptimizer.resume();
+        this.executionObs.onResumed();
     }
 }
 

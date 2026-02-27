@@ -25,10 +25,11 @@
     const sleepMid = Math.floor((sleepMin + sleepMax) / 2);
 
     // Unpack component props
-    let { config, onConfigChange, onTspInstanceChange }: {
+    let { config, onConfigChange, onTspInstanceChange, onRun }: {
         config: SolverConfigProps;
         onConfigChange: (newConfig: SolverConfigProps) => void;
         onTspInstanceChange: (tspInstance: string) => void;
+        onRun: () => void;
     } = $props();
 
     const currentSizeInstances = $derived(tspInstances[config.tspInstanceSize][1]);
@@ -185,6 +186,7 @@
 
         <button
             class="px-4 py-2 rounded-lg font-bold text-white !bg-indigo-600 hover:!bg-indigo-700 flex items-center gap-2 self-center"
+            onclick={onRun}
         >
             Run
             <Truck class="w-5 h-5 stroke-white" />

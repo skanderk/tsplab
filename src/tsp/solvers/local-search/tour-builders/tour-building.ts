@@ -37,8 +37,14 @@ export class RandomTourBuilder implements TourBuilder {
     name: string = 'Random tour algorithm';
 
     build(tspInstance: TspInstance): Tour {
-        // TODO Implementation for building a random tour
-        return new Tour([]);
+        const nodes = Array.from({ length: tspInstance.nodesCount }, (_, idx) => idx);
+
+        for (let i = nodes.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [nodes[i], nodes[j]] = [nodes[j], nodes[i]];
+        }
+
+        return new Tour(nodes);
     }
 }
 

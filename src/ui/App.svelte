@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onDestroy } from "svelte";
   import About from "./components/About.svelte";
   import Banner from "./components/Banner.svelte";
   import CostChart from "./components/CostChart.svelte";
@@ -41,6 +42,7 @@
     initLocalSearchSummary,
   );
   let costSummary = $state<CostSummaryProps>(initCostSummary);
+  let localSearchWorker: Worker | null = null;
 
   // Callback properties
   function onSolverConfigChange(newConfig: SolverConfigProps): void {
@@ -53,6 +55,48 @@
   function onTspInstanceChange(newTspInstance: string): void {
     solverConfig.tspInstance = newTspInstance;
   }
+
+  function ensureLocalSearchWorker(): Worker {
+    if (localSearchWorker !== null) {
+      return localSearchWorker;
+    }
+
+    localSearchWorker = new Worker(
+      new URL("./workers/local-search.worker.ts", import.meta.url),
+      { type: "module" },
+    );
+    localSearchWorker.onmessage = (event: MessageEvent): void => {
+      const { type, payload } = event.data ?? {};
+
+      if (type === "started") {
+        console.log("Local search worker started for instance");
+        localSearchSummary.iteration = 0;
+        localSearchSummary.appliedMovesCount = 0;
+        localSearchSummary.movesEvaluatedCount = 0;
+      } else if (type === "completed") {
+        localSearchSummary.iteration += 1;
+      } else if (type === "error") {
+        console.error("Local search worker error:", payload);
+      }
+    };
+
+    return localSearchWorker;
+  }
+
+  function onRun(): void {
+    const worker = ensureLocalSearchWorker();
+    worker.postMessage({
+      type: "start",
+      payload: {
+        instanceName: solverConfig.tspInstance,
+      },
+    });
+  }
+
+  onDestroy((): void => {
+    localSearchWorker?.terminate();
+    localSearchWorker = null;
+  });
 </script>
 
 <div class="w-full py-10 px-4">
@@ -67,6 +111,7 @@
         config={solverConfig}
         onConfigChange={onSolverConfigChange}
         {onTspInstanceChange}
+        {onRun}
       />
       <OptOperatorsConfig />
     </div>
