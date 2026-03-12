@@ -29,7 +29,7 @@ export class TspInstanceFactory {
             parsedJson.name,
             parsedJson.comment,
             parsedJson.dimension,
-            parsedJson.bestSolutionCost,
+            parsedJson.bestKnownCost,
             costsMatrix);
 
         return instance;
