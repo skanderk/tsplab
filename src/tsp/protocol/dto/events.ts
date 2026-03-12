@@ -26,3 +26,16 @@ export type LocalSearchSummary = {
     currentTourCost: number;
     bestTourCost: number; // best cost could be different from current cost if the algorithm accepts worsening moves.
 }
+
+export const initLocalSearchSummary: LocalSearchSummary = {
+    status: "idle",
+    iteration: 0,
+    elapsedTimeSec: 0,
+    lastOptimizationOperator: null,
+    lastMoveDescription: null,
+    evaluatedMovesCount: 0,
+    appliedMovesCount: 0,
+    initialTourCost: 0,
+    currentTourCost: 0,
+    bestTourCost: 0,
+};
