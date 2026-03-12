@@ -64,10 +64,7 @@ self.onmessage = async (event: MessageEvent<WorkerCommand>): Promise<void> => {
                 const { instanceName } = command.payload;
                 const loader = new TspInstanceLoader(TSPLIB_JSON_BASE_URL);
                 tspInstance = await loader.load(instanceName);
-
-                //### SK
-                console.log("Loaded instance:", tspInstance);
-
+                
                 const summary: TspInstanceSummary = {
                     name: tspInstance.name,
                     description: tspInstance.description,

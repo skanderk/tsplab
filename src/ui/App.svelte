@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import About from "./components/About.svelte";
   import Banner from "./components/Banner.svelte";
   import CostChart from "./components/CostChart.svelte";
@@ -44,6 +44,7 @@
   );
   let costSummary = $state<CostSummaryProps>(initCostSummary);
   let localSearchWorker: Worker | null = null;
+  let autoStartOnLoad = false;
 
   // Callback properties
   function onSolverConfigChange(newConfig: SolverConfigProps): void {
@@ -80,6 +81,10 @@
         instanceDetails.instName = payload.name;
         instanceDetails.instDescription = payload.description;
         instanceDetails.bestKnownCost = payload.bestSolutionCost;
+        if (autoStartOnLoad) {
+          autoStartOnLoad = false;
+          onRun();
+        }
       } else if (kind === "started") {
         console.log("Local search worker started for instance");
         localSearchSummary.iteration = 0;
@@ -106,11 +111,19 @@
     localSearchWorker?.terminate();
     localSearchWorker = null;
   });
+
+  onMount((): void => {
+    localSearchSummary.tourBuilderName =
+      tourBuilderDisplayNames[solverConfig.tourBuilderId];
+    instanceDetails.instName = solverConfig.tspInstance;
+    autoStartOnLoad = true;
+    onTspInstanceChange(solverConfig.tspInstance);
+  });
 </script>
 
 <div class="w-full py-10 px-4">
   <div
-    class="w-full max-w-[1280px] mx-auto flex flex-col gap-6
+    class="w-full max-w-[1760px] mx-auto flex flex-col gap-6
               border border-slate-300 rounded-xl shadow-xl
               !bg-[#f8fafc] p-4 md:p-6"
   >
