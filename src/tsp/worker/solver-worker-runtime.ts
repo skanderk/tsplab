@@ -18,7 +18,6 @@ const TSPLIB_JSON_BASE_URL =
 import {
     LocalSearchOptimizer,
     RoundRobinSelector,
-    type MoveSelectionStrategy,
     type SearchState,
 } from "../solvers/local-search/tour-optimizer";
 
@@ -26,13 +25,7 @@ import { LocalSearchSolver } from "../solvers/local-search/local-search-solver";
 import { RandomTourBuilder } from "../solvers/local-search/tour-builders/tour-building";
 
 import type { Move } from "../models/move";
-
-// TODO Refactor out
-class FirstMoveSelector implements MoveSelectionStrategy {
-    public selectMove(candidates: Move[]): Move | null {
-        return candidates[0] ?? null;
-    }
-}
+import { FirstMoveSelector } from "../solvers/local-search/tour-optimizer";
 
 export class SolverWorkerRuntime {
     public readonly state: SolverWorkerState;
@@ -219,4 +212,3 @@ export class SolverWorkerRuntime {
         };
     }
 }
-

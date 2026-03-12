@@ -30,6 +30,9 @@ export interface TourOptimizer {
 export class LocalSearchOptimizer implements TourOptimizer, Stoppable {
 
     private searchState: SearchState;
+    private currentTour: Tour | null = null;
+    private currentInstance: TspInstance | null = null;
+    private status: LocalSearchStatus = "idle";
 
     /**
      * Creates a new LocalSearchOptimizer given a set of optimization operators 
@@ -47,8 +50,60 @@ export class LocalSearchOptimizer implements TourOptimizer, Stoppable {
      * Iteratively improves the given tour using local search.
      */
     optimize(tour: Tour, tspInstance: TspInstance): Tour {
-        // TODO Implementation for local search optimization
-        return tour;
+        this.begin(tour, tspInstance);
+
+        while (true) {
+            const status = this.improveCurrentTour();
+            if (status !== "running") {
+                break;
+            }
+        }
+
+        return this.getCurrentTour();
+    }
+
+    /**
+     * Initializes the optimizer to run step-by-step.
+     */
+    public begin(tour: Tour, tspInstance: TspInstance): void {
+        this.currentTour = tour;
+        this.currentInstance = tspInstance;
+        this.searchState = { ...initSearchState };
+        this.status = "running";
+    }
+
+    /**
+     * Executes a single optimization step.
+     */
+    public improveCurrentTour(): LocalSearchStepStatus {
+        if (!this.currentTour || !this.currentInstance) {
+            throw new Error("LocalSearchOptimizer not initialized. Call begin() first.");
+        }
+
+        if (this.status !== "running") {
+            if (this.status === "idle") {
+                throw new Error("LocalSearchOptimizer not initialized. Call begin() first.");
+            }
+            return this.status;
+        }
+
+        if (this.operators.length === 0) {
+            this.status = "completed";
+            return this.status;
+        }
+
+        // TODO Implement a single optimization iteration and termination criteria
+        // (e.g., max iterations, no-improvement threshold).
+        this.status = "completed";
+        return this.status;
+    }
+
+    public getCurrentTour(): Tour {
+        if (!this.currentTour) {
+            throw new Error("LocalSearchOptimizer has no current tour.");
+        }
+
+        return this.currentTour;
     }
 
     public setOperators(operators: Array<OptimizationOperator>): LocalSearchOptimizer {
@@ -67,15 +122,19 @@ export class LocalSearchOptimizer implements TourOptimizer, Stoppable {
     }
 
     public stop(): void {
-        // TODO Implent stop optimization logic
+        this.status = "stopped";
     }
 
     public pause(): void {
-        // TODO implement pause optimization logic.
+        if (this.status === "running") {
+            this.status = "paused";
+        }
     }
 
     public resume(): void {
-        // Implement resume optimization logic.
+        if (this.status === "paused") {
+            this.status = "running";
+        }
     }
 }
 
@@ -186,6 +245,13 @@ export interface MoveSelectionStrategy {
     selectMove(candidates: Move[]): Move | null;
 }
 
+export class FirstMoveSelector implements MoveSelectionStrategy {
+    public selectMove(candidates: Move[]): Move | null {
+        return candidates[0] ?? null;
+    }
+}
+
+
 /**
  * Interface for tracking the state of the search process.
  */
@@ -195,6 +261,9 @@ export interface SearchState {
     noImprovementCount: number;
     lastOperatorIdx: number;
 }
+
+export type LocalSearchStatus = "idle" | "running" | "paused" | "stopped" | "completed";
+export type LocalSearchStepStatus = Exclude<LocalSearchStatus, "idle">;
 
 
 /**
