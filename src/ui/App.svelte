@@ -16,7 +16,7 @@
     InstanceDetailsProps,
     LocalSearchSummaryProps,
     CostSummaryProps,
-  } from "./state/dtos";
+  } from "./state/dto";
 
   // Initial states
   import {
@@ -49,7 +49,7 @@
   function onSolverConfigChange(newConfig: SolverConfigProps): void {
     Object.assign(solverConfig, newConfig);
     instanceDetails.instName = solverConfig.tspInstance;
-    instanceDetails.tourBuilderName =
+    localSearchSummary.tourBuilderName =
       tourBuilderDisplayNames[solverConfig.tourBuilderId];
   }
 

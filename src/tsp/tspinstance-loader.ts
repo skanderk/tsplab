@@ -7,7 +7,6 @@
  */
 
 
-
 import { TspInstanceLoaderError } from "./errors";
 import type { TspInstance } from "./models/tsp-instance";
 import { TspInstanceFactory } from "./tspinstance-factory";

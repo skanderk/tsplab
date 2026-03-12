@@ -1,7 +1,7 @@
 /*
  * Author: Skander Kort
  * Created: 2026-02-16 11:28:33
- * Modified: 2026-02-16 17:19:30
+ * Modified: 2026-03-12 13:00:16
  * 
  * Licensed under the Apache License, Version 2.0
  */
@@ -38,13 +38,14 @@ export interface InstanceDetailsProps {
     instName: string; // Name of the active TSP instance.
     instDescription: string; // Short description of the active TSP instance.
     bestKnownCost: number; // Lowest cost known of the active TSP instance.
-    tourBuilderName: string; // Name of the initialization heuristic used for this run.
 }
 
 /**
  * Props types for the LocalSearchSummary component.
  */
 export interface LocalSearchSummaryProps {
+    solverStatus: "idle" | "running" | "Paused" | "completed"; // Current status of the local search solver.
+    tourBuilderName: string; // Name of the initialization heuristic used for this run.
     iteration: number; // Index of the current iteration
     runTimeSec: number; // Time elapsed since the start of solving the TSP instance exclusing sleep periods.
     appliedOperator: string; // Name of the optimization operator that has beed selected.

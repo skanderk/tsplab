@@ -1,4 +1,4 @@
-import type { SolverConfigProps, InstanceDetailsProps, LocalSearchSummaryProps } from "./dtos";
+import type { SolverConfigProps, InstanceDetailsProps, LocalSearchSummaryProps } from "./dto";
 import { tspInstances } from "./tsp-instances";
 
 export const initSolverConfig: SolverConfigProps = {
@@ -12,11 +12,12 @@ export const initSolverConfig: SolverConfigProps = {
 export const initInstanceDetails: InstanceDetailsProps = {
     instName: "",
     instDescription: "",
-    bestKnownCost: 0,
-    tourBuilderName: "Random"
+    bestKnownCost: 0
 }
 
-export const initLocalSearchSummary: LocalSearchSummaryProps = {    
+export const initLocalSearchSummary: LocalSearchSummaryProps = {
+    solverStatus: "idle",
+    tourBuilderName: "",    
     iteration: 0,
     runTimeSec: 0,
     appliedOperator: "",

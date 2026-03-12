@@ -1,6 +1,6 @@
 <script lang="ts">
     import { HatGlasses } from "@lucide/svelte";
-    import { type LocalSearchSummaryProps } from "../state/dtos";
+    import { type LocalSearchSummaryProps } from "../state/dto";
 
     let { summary } : {summary: LocalSearchSummaryProps} = $props();
 </script>
@@ -15,6 +15,14 @@
 
     <table class="w-full text-left text-sm">
         <tbody class="divide-y divide-slate-200">
+            <tr>
+                <td class="py-1 font-medium w-1/3 whitespace-nowrap">Solver status:</td>
+                <td class="py-1 w-2/3">{summary.solverStatus}</td>
+            </tr>
+            <tr>
+                <td class="py-1 font-medium w-1/3 whitespace-nowrap">Init heuristic:</td>
+                <td class="py-1 w-2/3">{summary.tourBuilderName}</td>
+            </tr>
             <tr>
                 <td class="py-1 font-medium w-1/3 whitespace-nowrap">Iteration:</td>
                 <td class="py-1 w-2/3">{summary.iteration}</td>

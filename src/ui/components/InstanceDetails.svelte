@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Info } from "@lucide/svelte";
-    import { type InstanceDetailsProps } from "../state/dtos";
+    import { type InstanceDetailsProps } from "../state/dto";
 
     let { details } : {details: InstanceDetailsProps} = $props();
 </script>
@@ -26,10 +26,6 @@
             <tr>
                 <td class="py-1 font-medium w-1/3">Best known cost:</td>
                 <td class="py-1 w-2/3">{details.bestKnownCost}</td>
-            </tr>
-            <tr>
-                <td class="py-1 font-medium w-1/3">Init heuristic:</td>
-                <td class="py-1 w-2/3">{details.tourBuilderName}</td>
             </tr>
         </tbody>
     </table>

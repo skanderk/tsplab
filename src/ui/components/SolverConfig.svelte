@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Slider } from "@skeletonlabs/skeleton-svelte";
     import { Truck, Cog } from "@lucide/svelte";
-    import type { SolverConfigProps, TourBuilderId, TspInstanceSize } from "../state/dtos";
+    import type { SolverConfigProps, TourBuilderId, TspInstanceSize } from "../state/dto";
     import { tspInstances } from "../state/tsp-instances";
 
     // Dropdowns configs

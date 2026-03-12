@@ -1,6 +1,6 @@
 <script lang="ts">
     import { BadgeDollarSign } from "@lucide/svelte";
-    import { type CostSummaryProps } from "../state/dtos";
+    import { type CostSummaryProps } from "../state/dto";
 
     let { stats } : {stats: CostSummaryProps} = $props();
 </script>
