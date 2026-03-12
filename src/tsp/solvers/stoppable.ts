@@ -16,9 +16,9 @@ export interface Stoppable {
     resume(): void;
 }
 
-export interface StoppableObserver {
-    onStarted : () => void;
-    onPaused: () => void;
-    onResumed: () => void;
-    onStopped: () => void;
+export interface StoppableObserver<TState> {
+    onStarted : (state: TState) => void;
+    onPaused: (state: TState) => void;
+    onResumed: (state: TState) => void;
+    onStopped: (state: TState) => void;
 }

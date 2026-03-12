@@ -8,7 +8,8 @@
 
 
 import type { WorkerCommand } from "../protocol/commands";
-import { initLocalSearchSummary, type TspInstanceSummary, type LocalSearchSummary } from "../protocol/dto/events";
+import { initLocalSearchSummary, type TspInstanceSummary } from "../protocol/dto/events";
+import { LocalSearchSummaryFactory } from "../protocol/dto/local-search-summary-factory";
 import type { SolverWorkerState } from "./solver-worker-state";
 
 import { TspInstanceLoader } from "../tspinstance-loader";
@@ -23,6 +24,7 @@ import {
 
 import { LocalSearchSolver } from "../solvers/local-search/local-search-solver";
 import { RandomTourBuilder } from "../solvers/local-search/tour-builders/tour-building";
+import type { LocalSearchSolverState } from "../solvers/local-search/local-search-state";
 
 import type { Move } from "../models/move";
 import { FirstMoveSelector } from "../solvers/local-search/tour-optimizer";
@@ -36,7 +38,6 @@ export class SolverWorkerRuntime {
             solver: null,
             loader: new TspInstanceLoader(TSPLIB_JSON_BASE_URL),
             tspInstance: null,
-            solveStartTimeMs: null,
             localSearchSummary: initLocalSearchSummary
         }
 
@@ -102,8 +103,7 @@ export class SolverWorkerRuntime {
             return;
         }
 
-        this.state.solveStartTimeMs = Date.now();
-        this.state.localSearchSummary = Object.assign(initLocalSearchSummary, { status: "running" });
+        this.state.localSearchSummary = { ...initLocalSearchSummary };
 
         const optimizer = new LocalSearchOptimizer(
             [],
@@ -111,11 +111,10 @@ export class SolverWorkerRuntime {
             new FirstMoveSelector(),
             {
                 onMoveSelected: (selectedMove: Move, searchState: SearchState): void => {
-                    this.state.localSearchSummary = {
-                        ...this.state.localSearchSummary,
-                        iteration: searchState.iterations,
-                        lastOptimizationOperator: selectedMove.optOprName,
-                    };
+                    const solverState = this.state.solver?.getState();
+                    if (solverState) {
+                        this.state.localSearchSummary = LocalSearchSummaryFactory.fromSolverState(solverState);
+                    }
                     this.emitEvent({
                         kind: "move-selected",
                         payload: {
@@ -132,41 +131,29 @@ export class SolverWorkerRuntime {
             new RandomTourBuilder(),
             optimizer,
             {
-                onStarted: (): void => {
-                    this.state.localSearchSummary = this.updateElapsedTime({
-                        ...this.state.localSearchSummary,
-                        status: "running",
-                    });
+                onStarted: (state: LocalSearchSolverState): void => {
+                    this.state.localSearchSummary = LocalSearchSummaryFactory.fromSolverState(state);
                     this.emitEvent({
                         kind: "started",
                         payload: this.state.localSearchSummary,
                     });
                 },
-                onPaused: (): void => {
-                    this.state.localSearchSummary = this.updateElapsedTime({
-                        ...this.state.localSearchSummary,
-                        status: "paused",
-                    });
+                onPaused: (state: LocalSearchSolverState): void => {
+                    this.state.localSearchSummary = LocalSearchSummaryFactory.fromSolverState(state);
                     this.emitEvent({
                         kind: "paused",
                         payload: this.state.localSearchSummary,
                     });
                 },
-                onResumed: (): void => {
-                    this.state.localSearchSummary = this.updateElapsedTime({
-                        ...this.state.localSearchSummary,
-                        status: "running",
-                    });
+                onResumed: (state: LocalSearchSolverState): void => {
+                    this.state.localSearchSummary = LocalSearchSummaryFactory.fromSolverState(state);
                     this.emitEvent({
                         kind: "resumed",
                         payload: this.state.localSearchSummary,
                     });
                 },
-                onStopped: (): void => {
-                    this.state.localSearchSummary = this.updateElapsedTime({
-                        ...this.state.localSearchSummary,
-                        status: "stopped",
-                    });
+                onStopped: (state: LocalSearchSolverState): void => {
+                    this.state.localSearchSummary = LocalSearchSummaryFactory.fromSolverState(state);
                     this.emitEvent({
                         kind: "stopped",
                         payload: this.state.localSearchSummary,
@@ -189,26 +176,15 @@ export class SolverWorkerRuntime {
         );
 
         const solution = this.state.solver.solve(this.state.tspInstance);
-        this.state.localSearchSummary = this.updateElapsedTime({
-            ...this.state.localSearchSummary,
-            status: "completed",
-        });
-        this.emitEvent({
-            kind: "completed",
-            payload: this.state.localSearchSummary,
-        });
-        this.state.solveStartTimeMs = null;
+        const finalState = this.state.solver.getState();
+        this.state.localSearchSummary = LocalSearchSummaryFactory.fromSolverState(finalState);
+        if (finalState.status === "completed") {
+            this.emitEvent({
+                kind: "completed",
+                payload: this.state.localSearchSummary,
+            });
+        }
         return;
     }
 
-    private updateElapsedTime(summary: LocalSearchSummary): LocalSearchSummary {
-        if (this.state.solveStartTimeMs === null) {
-            return summary;
-        }
-
-        return {
-            ...summary,
-            elapsedTimeSec: (Date.now() - this.state.solveStartTimeMs) / 1000,
-        };
-    }
 }

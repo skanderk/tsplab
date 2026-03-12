@@ -1,10 +1,11 @@
 /*
  * Author: Skander Kort
  * Created: 2026-01-22 10:28:11
- * Modified: 2026-02-16 09:32:58
+ * Modified: 2026-03-12 17:23:30
  * 
  * Licensed under the Apache License, Version 2.0
  */
+
 
 import { CostMatrix } from "../../models/cost-matrix";
 import { Tour } from "../../models/tour";
@@ -12,6 +13,7 @@ import type { Nameable } from "../nameable";
 import type { Move } from "../../models/move";
 import type { TspInstance } from "../../models/tsp-instance";
 import type { Stoppable } from "../stoppable";
+import { type LocalSearchOptimizerState, initLocalSearchOptimizerState } from "./local-search-state";
 
 /**
  * Interface for optimizing a TSP tour.
@@ -33,6 +35,7 @@ export class LocalSearchOptimizer implements TourOptimizer, Stoppable {
     private currentTour: Tour | null = null;
     private currentInstance: TspInstance | null = null;
     private status: LocalSearchStatus = "idle";
+    private optimizerState: LocalSearchOptimizerState = { ...initLocalSearchOptimizerState };
 
     /**
      * Creates a new LocalSearchOptimizer given a set of optimization operators 
@@ -68,7 +71,17 @@ export class LocalSearchOptimizer implements TourOptimizer, Stoppable {
     public begin(tour: Tour, tspInstance: TspInstance): void {
         this.currentTour = tour;
         this.currentInstance = tspInstance;
-        this.searchState = { ...initSearchState };
+        const initialTourCost = tour.cost(tspInstance.costs);
+        this.searchState = {
+            ...initSearchState,
+            bestCost: initialTourCost,
+        };
+        this.optimizerState = {
+            ...initLocalSearchOptimizerState,
+            initialTourCost,
+            currentTourCost: initialTourCost,
+            bestTourCost: initialTourCost,
+        };
         this.status = "running";
     }
 
@@ -96,6 +109,10 @@ export class LocalSearchOptimizer implements TourOptimizer, Stoppable {
         // (e.g., max iterations, no-improvement threshold).
         this.status = "completed";
         return this.status;
+    }
+
+    public getState(): LocalSearchOptimizerState {
+        return { ...this.optimizerState };
     }
 
     public getCurrentTour(): Tour {

@@ -7,6 +7,5 @@ export type SolverWorkerState = {
     loader: TspInstanceLoader | null;
     tspInstance: TspInstance | null;
     solver: LocalSearchSolver | null;
-    solveStartTimeMs: number | null;
     localSearchSummary: LocalSearchSummary
 }
