@@ -6,7 +6,6 @@
  * Licensed under the Apache License, Version 2.0
  */
 
-
 import { TspInstance } from "../../../models/tsp-instance";
 import { Tour } from "../../../models/tour";
 import type { Nameable } from "../../nameable";

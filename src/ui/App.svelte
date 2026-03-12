@@ -10,6 +10,7 @@
   import CostStats from "./components/CostStats.svelte";
   import SolverConfig from "./components/SolverConfig.svelte";
   import TourGraph from "./components/TourGraph.svelte";
+  import type { WorkerEvent } from "../tsp/protocol/events";
   import type {
     SolverConfigProps,
     InstanceDetailsProps,
@@ -54,6 +55,13 @@
 
   function onTspInstanceChange(newTspInstance: string): void {
     solverConfig.tspInstance = newTspInstance;
+    const worker = ensureLocalSearchWorker();
+    worker.postMessage({
+      kind: "load-instance",
+      payload: {
+        instanceName: newTspInstance,
+      },
+    });
   }
 
   function ensureLocalSearchWorker(): Worker {
@@ -62,20 +70,24 @@
     }
 
     localSearchWorker = new Worker(
-      new URL("./workers/local-search.worker.ts", import.meta.url),
+      new URL("../tsp/worker/solver.worker.ts", import.meta.url),
       { type: "module" },
     );
-    localSearchWorker.onmessage = (event: MessageEvent): void => {
-      const { type, payload } = event.data ?? {};
+    localSearchWorker.onmessage = (event: MessageEvent<WorkerEvent>): void => {
+      const { kind, payload } = event.data ?? {};
 
-      if (type === "started") {
+      if (kind === "instance-loaded") {
+        instanceDetails.instName = payload.name;
+        instanceDetails.instDescription = payload.description;
+        instanceDetails.bestKnownCost = payload.bestSolutionCost;
+      } else if (kind === "started") {
         console.log("Local search worker started for instance");
         localSearchSummary.iteration = 0;
         localSearchSummary.appliedMovesCount = 0;
         localSearchSummary.movesEvaluatedCount = 0;
-      } else if (type === "completed") {
+      } else if (kind === "completed") {
         localSearchSummary.iteration += 1;
-      } else if (type === "error") {
+      } else if (kind === "error") {
         console.error("Local search worker error:", payload);
       }
     };
@@ -86,10 +98,7 @@
   function onRun(): void {
     const worker = ensureLocalSearchWorker();
     worker.postMessage({
-      type: "start",
-      payload: {
-        instanceName: solverConfig.tspInstance,
-      },
+      kind: "start",
     });
   }
 
